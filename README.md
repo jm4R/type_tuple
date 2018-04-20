@@ -4,7 +4,7 @@ Tuple indexed by type, instead of standard numeric-index based.
 
 ## Problem introduction
 
-Standard, index-based tuples requires us to remember or constantly chacking out what specific index stands for. Let's se an example:
+Standard, index-based tuples requires us to remember or constantly checking out what specific index stands for. Let's see an example:
 
 ```c++
 using db_options = std::tuple<bool /*auto_commit*/, bool /*use_cache*/, int /*cache_size*/>;
@@ -14,9 +14,9 @@ db_options options{false, true, 500};
 auto db = open_db(options);
 ```
 
-This example is pretty ugly as passing list of raw values to function are causing poorly readable code.
-Of course in ths particular example we would rather develop a structure containing database options.
-Possibly the best option would be to use [named parameters](https://en.wikipedia.org/wiki/Named_parameter). Unfortunetely C++ itself does not handle that feature.
+This example is pretty ugly as passing list of raw values to function causes poorly readable code.
+Of course in this particular example we would rather develop a structure containing database options.
+Possibly the best option would be to use [named parameters](https://en.wikipedia.org/wiki/Named_parameter). Unfortunately C++ itself does not handle that feature.
 
 ## The proposed solution
 
@@ -41,7 +41,7 @@ All of those has unique tag at template parameter list, just to make each of the
 Then we declare the tuple itself. The `explicit_tuple` is a variadic template, but – unlike `std::tuple` all types have to be unique.
 What for? We can see the answer when we see the tuple usage. The constructor arguments are binded by a type, not by an order.
 
-This means that all of following statementst are the same:
+This means that all of following statements are the same:
 
 ```c++
 db_options options{auto_commit{false}, cache_size{500}, use_cache{true}};
@@ -72,7 +72,8 @@ So this is rather a hacky workaround for lack of named parameters feature in C++
 ## Known limitations
 1. `explicit_type` doesn't support arrays (and probably never will, use `std::array` instead)
 2. setters are not implemented (**TODO**)
-3. it is early version of it, so a bug can happen (please inform me)
+3. it is not constrexpr, but possibly could be (**TODO**)
+4. it is early version of it, so a bug can happen (please inform me)
 
 ## Installation
 It is a C++11 header-only library.
@@ -81,4 +82,4 @@ It is a C++11 header-only library.
 Distributed under the [Boost Software License, Version 1.0](http://www.boost.org/LICENSE_1_0.txt).
 
 ## Acknowledgements
-This library was inspired by Andrzej Krzemiński's [`explicit`](http://www.boost.org/LICENSE_1_0.txt) library, especially [`tagged_bool`](https://github.com/akrzemi1/explicit#tool-tagged_bool) part of it and is extension of the idea.
+This library was inspired by Andrzej Krzemiński's [`explicit`](https://github.com/akrzemi1/explicit) library, especially [`tagged_bool`](https://github.com/akrzemi1/explicit#tool-tagged_bool) part of it and is extension of the idea.
