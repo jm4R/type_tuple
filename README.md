@@ -17,6 +17,7 @@ auto db = open_db(options);
 This example is pretty ugly as passing list of raw values to function causes poorly readable code.
 Of course in this particular example we would rather develop a structure containing database options.
 Possibly the best option would be to use [named parameters](https://en.wikipedia.org/wiki/Named_parameter). Unfortunately C++ itself does not handle that feature.
+Please note that very similar feature comes with C++20's [designated initializers](http://en.cppreference.com/w/cpp/language/aggregate_initialization).
 
 ## The proposed solution
 
@@ -69,11 +70,16 @@ The first idea of name of this library was `properties`,
 as it was needed for setting properties for initialization of some other libraries in more expressive way.
 So this is rather a hacky workaround for lack of named parameters feature in C++ language.
 
+Please note that also [designated initializers](http://en.cppreference.com/w/cpp/language/aggregate_initialization)
+from C++20 functionality differs from this libraries purposes – it doesn't support mixed order of parameters,
+it's also limited to an object constructors so no appliable to a ordinary functions/member functions whereas this library could be applied to variadic templated functions.
+
 ## Known limitations
 1. `explicit_type` doesn't support arrays (and probably never will, use `std::array` instead)
 2. setters are not implemented (**TODO**)
-3. it is not constrexpr, but possibly could be (**TODO**)
-4. it is early version of it, so a bug can happen (please inform me)
+3. default values for parameter is always default-constructed (**TODO**)
+4. it is not constrexpr, but possibly could be (**TODO**)
+5. it is early version of it, so a bug can happen (please inform me)
 
 ## Installation
 It is a C++11 header-only library.
