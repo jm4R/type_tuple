@@ -82,7 +82,7 @@ it's also limited to an object constructors so no appliable to a ordinary functi
 5. it is early version of it, so a bug can happen (please inform me)
 
 ## Installation
-It is a C++11 header-only library.
+It is a C++11 header-only library. Requires C++11 support
 
 ## License
 Distributed under the [Boost Software License, Version 1.0](http://www.boost.org/LICENSE_1_0.txt).
