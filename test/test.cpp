@@ -80,6 +80,53 @@ struct test_fixture {
       assert(true == db.get<auto_commit>());
       assert(500 == db.get<cache_size>());
     }
+
+    {
+      db_options db_tmp{auto_commit{true}, use_cache{true}, cache_size{500}};
+      db_options db{db_tmp};
+      assert(true == db.get<use_cache>());
+      assert(true == db.get<auto_commit>());
+      assert(500 == db.get<cache_size>());
+    }
+
+    {
+      db_options db_tmp{auto_commit{true}, use_cache{true}, cache_size{500}};
+      db_options db;
+      db = db_tmp;
+      assert(true == db.get<use_cache>());
+      assert(true == db.get<auto_commit>());
+      assert(500 == db.get<cache_size>());
+    }
+  }
+
+  void test_explicit_get_set() {
+    using basic = mj::explicit_type<int, class basic_tag>;
+    using pointer = mj::explicit_type<int *, class pointer_tag>;
+    using object = mj::explicit_type<std::shared_ptr<int>, class object_tag>;
+
+    mj::explicit_tuple<basic, pointer, object> t{};
+
+    assert(0 == t.get<basic>());
+    t.get<basic>() = basic{11};
+    assert(11 == t.get<basic>());
+    t.set(basic{12});
+    assert(12 == t.get<basic>());
+
+    int a, b;
+    assert(nullptr == t.get<pointer>());
+    t.get<pointer>() = pointer{&a};
+    assert(&a == t.get<pointer>());
+    t.set(pointer{&b});
+    assert(&b == t.get<pointer>());
+
+    assert(nullptr == t.get<object>());
+    t.get<object>() = object{std::make_shared<int>(21)};
+    assert(21 == *t.get<object>()->get());
+    t.set(object{std::make_shared<int>(22)});
+    assert(22 == *t.get<object>()->get());
+
+    assert(12 == t.get<basic>());
+    assert(&b == t.get<pointer>());
   }
 
   void test_size() {
@@ -169,6 +216,7 @@ int main() {
   test.test_explicit_type<some_enum_class>(some_enum_class::v2);
   //---
   test.test_explicit_tuple();
+  test.test_explicit_get_set();
   test.test_size();
 
   std::cout << "All tests passed" << std::endl;

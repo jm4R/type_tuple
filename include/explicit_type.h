@@ -4,8 +4,8 @@
 // License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef MJ_TOOLS_H
-#define MJ_TOOLS_H
+#ifndef jm4r_EXPLICIT_TYPE_H
+#define jm4r_EXPLICIT_TYPE_H
 
 #include <type_traits>
 #include <utility>
@@ -35,10 +35,12 @@ public:
   }
 
   operator value_type() { return value_; }
+  const value_type *operator->() const & { return &value_; }
+  value_type *operator->() & { return &value_; }
 
 private:
   value_type value_;
 };
 }
 
-#endif // MJ_TOOLS_H
+#endif // jm4r_EXPLICIT_TYPE_H
