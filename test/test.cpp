@@ -24,8 +24,8 @@ struct test_fixture {
                   "explicit_type shouldn't be explicitly convertible from "
                   "underlying type");
     static_assert(
-        std::is_convertible<velocity, T>::value,
-        "explicit_type should be explicitly convertible to underlying type");
+        !std::is_convertible<velocity, T>::value,
+        "explicit_type shouldn't be explicitly convertible to underlying type");
 
     assert(testValue == a1);
     assert(T{} == a2);
@@ -127,6 +127,11 @@ struct test_fixture {
 
     assert(12 == t.get<basic>());
     assert(&b == t.get<pointer>());
+
+    t.set(pointer{&a}, basic{13});
+    assert(22 == *t.get<object>()->get());
+    assert(13 == t.get<basic>());
+    assert(&a == t.get<pointer>());
   }
 
   void test_size() {

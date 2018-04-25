@@ -34,13 +34,13 @@ public:
     return v1 != v2.value_;
   }
 
-  operator value_type() { return value_; }
+  explicit operator value_type() { return value_; }
   const value_type *operator->() const & { return &value_; }
   value_type *operator->() & { return &value_; }
 
 private:
   value_type value_;
 };
-}
+}  // namespace mj
 
 #endif // jm4r_EXPLICIT_TYPE_H
