@@ -103,8 +103,9 @@ struct test_fixture {
     using basic = mj::explicit_type<int, class basic_tag>;
     using pointer = mj::explicit_type<int *, class pointer_tag>;
     using object = mj::explicit_type<std::shared_ptr<int>, class object_tag>;
+    using movable_only = mj::explicit_type<std::unique_ptr<int>, class object_tag>;
 
-    mj::explicit_tuple<basic, pointer, object> t{};
+    mj::explicit_tuple<basic, pointer, object, movable_only> t{};
 
     assert(0 == t.get<basic>());
     t.get<basic>() = basic{11};
@@ -124,6 +125,12 @@ struct test_fixture {
     assert(21 == *t.get<object>()->get());
     t.set(object{std::make_shared<int>(22)});
     assert(22 == *t.get<object>()->get());
+
+    assert(nullptr == t.get<movable_only>());
+    t.get<movable_only>() = movable_only{std::unique_ptr<int>(new int{31})};
+    assert(31 == *t.get<movable_only>()->get());
+    t.set(movable_only{std::unique_ptr<int>(new int{32})});
+    assert(32 == *t.get<movable_only>()->get());
 
     assert(12 == t.get<basic>());
     assert(&b == t.get<pointer>());
