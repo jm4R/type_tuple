@@ -27,10 +27,11 @@ template <typename... Params>
 class explicit_tuple : public property_holder<Params>... {
 public:
   template <typename... Args>
-  explicit explicit_tuple(Args... args) //FIXME: &&: variadic constructor and copy constructor coexistance
+  explicit explicit_tuple(Args&&... args)
       : property_holder<Args>(std::forward<Args>(args))... {}
 
   explicit_tuple(const explicit_tuple &) = default;
+  explicit_tuple(explicit_tuple &) = default;
   explicit_tuple &operator=(const explicit_tuple &) = default;
 
   template <typename T> T get() const { return property_holder<T>::get(); }
