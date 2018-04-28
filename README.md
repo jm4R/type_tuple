@@ -76,13 +76,13 @@ it's also limited to an object constructors so no appliable to a ordinary functi
 
 ## Known limitations
 1. `explicit_type` doesn't support arrays (and probably never will, use `std::array` instead)
-2. setters are not implemented (**TODO**)
+2. `explicit_type` doesn't support references (**TO ANALYSE**)
 3. default values for parameter is always default-constructed (**TODO**)
 4. it is not constrexpr, but possibly could be (**TODO**)
 5. it is early version of it, so a bug can happen (please inform me)
 
 ## Installation
-It is a C++11 header-only library.
+It is a C++11 header-only library. Requires C++11 support
 
 ## License
 Distributed under the [Boost Software License, Version 1.0](http://www.boost.org/LICENSE_1_0.txt).
