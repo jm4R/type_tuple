@@ -37,6 +37,9 @@ struct test_fixture {
     v = velocity{testValue};
 
     assert(testValue == a2);
+
+    static_assert(std::is_same<T, typename mj::underlying_of<acceleration>::type>::value, "underlying_for should return underlying_type");
+    static_assert(std::is_same<typename mj::underlying_of<velocity>::type, typename mj::underlying_of<acceleration>::type>::value, "underlying_for should return underlying_type");
   }
 
   void test_explicit_tuple() {

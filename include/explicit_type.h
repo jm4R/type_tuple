@@ -41,6 +41,16 @@ public:
 private:
   value_type value_;
 };
+
+template <typename T>
+struct underlying_of {};
+
+template <typename T, typename Tag>
+struct underlying_of<explicit_type<T, Tag>>
+{
+    using type = T;
+};
+
 }  // namespace mj
 
 #endif // jm4r_EXPLICIT_TYPE_H
