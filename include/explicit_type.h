@@ -14,7 +14,7 @@ namespace mj {
 
 template <typename T, typename Tag> class explicit_type {
 public:
-  using value_type = typename std::remove_const<T>::type;
+  using value_type = T;
 
 public:
   explicit_type() : value_{} {}

@@ -12,7 +12,7 @@
 namespace mj {
 
 template <typename T> class property_holder {
-  using value_type = typename std::remove_const<T>::type;
+  using value_type = T;
   value_type val_;
 
 protected:
