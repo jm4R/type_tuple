@@ -38,6 +38,9 @@ public:
   const value_type *operator->() const & { return &value_; }
   value_type *operator->() & { return &value_; }
 
+  const value_type& operator*() const & { return value_; }
+  value_type& operator*() & { return value_; }
+
 private:
   value_type value_;
 };
