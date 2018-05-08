@@ -1,6 +1,9 @@
 # explicit_tuple
 
-Tuple indexed by type, instead of standard numeric-index based.
+This library contains:
+
+* opaque typedef's – `explicit_type`;
+* tuple indexed by type, instead of standard numeric-index based – `explicit_tuple`.
 
 ## Problem introduction
 
@@ -17,7 +20,7 @@ auto db = open_db(options);
 This example is pretty ugly as passing list of raw values to function causes poorly readable code.
 Of course in this particular example we would rather develop a structure containing database options.
 Possibly the best option would be to use [named parameters](https://en.wikipedia.org/wiki/Named_parameter). Unfortunately C++ itself does not handle that feature.
-Please note that very similar feature comes with C++20's [designated initializers](http://en.cppreference.com/w/cpp/language/aggregate_initialization).
+Please note that very similar (but not the same) feature comes with C++20's [designated initializers](http://en.cppreference.com/w/cpp/language/aggregate_initialization).
 
 ## The proposed solution
 
@@ -69,6 +72,9 @@ The definition of such tuple is more complicated, and are considered to be used 
 The first idea of name of this library was `properties`,
 as it was needed for setting properties for initialization of some other libraries in more expressive way.
 So this is rather a hacky workaround for lack of named parameters feature in C++ language.
+
+The `explicit_type` purpose is very similar to [BOOST_STRONG_TYPEDEF](https://www.boost.org/doc/libs/1_67_0/libs/serialization/doc/strong_typedef.html).
+Is it that bad? Boost libraries widely uses macros so I will not give you an answer, just refer to [Bjarne Stroustrup thoughts about using macros](http://www.stroustrup.com/bs_faq2.html#macro).
 
 Please note that also [designated initializers](http://en.cppreference.com/w/cpp/language/aggregate_initialization)
 from C++20 functionality differs from this libraries purposes – it doesn't support mixed order of parameters,
