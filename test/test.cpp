@@ -39,6 +39,56 @@ struct test_fixture {
     assert(testValue == a2);
   }
 
+  void test_explicit_type_operators() {
+    using myint = mj::explicit_type<int, class mi>;
+    const myint val{16};
+    
+    assert(val == 16);
+    assert(16 == val);
+    assert(val != 17);
+    assert(17 != val);
+    
+    assert(val < 17);
+    assert(15 < val);
+    assert(val <= 17);
+    assert(15 <= val);
+    assert(val <= 16);
+    assert(16 <= val);
+    
+    assert(val > 15);
+    assert(17 > val);
+    assert(val >= 15);
+    assert(17 >= val);
+    assert(val >= 16);
+    assert(16 >= val);
+    
+    const myint two{2};
+    assert( *(two + val) == 18);
+    assert( *(two - val) == -14);
+    assert( *(val * 2)   == 32);
+    assert( *(4 * val)   == 64);
+    assert( *(val / 2)   == 8);
+    assert(typeid(int) == typeid(decltype(val/two)));
+    assert(val / two     == 8);
+    assert(typeid(int) == typeid(decltype(val%3)));
+    assert(val % 3     == 1);
+    
+    assert( *(val << 2) == 64);
+    assert( *(val >> 2) == 4);
+    assert( *(val & 2)  == 0);
+    assert( *(16 & val) == 16);
+    assert( *(val | 2)  == 18);
+    assert( *(16 | val) == 16);
+    assert( *(val ^ 2)  == 18);
+    assert( *(16 ^ val) == 0);
+    
+    assert( *(~val) == ~16);
+    assert( *(!val) == !16);
+    assert( *(+val) == +16);
+    assert( *(-val) == -16);
+    
+  }
+
   void test_explicit_tuple() {
     using use_cache = mj::explicit_type<bool, class use_cache_tag>;
     using cache_size = mj::explicit_type<int, class cache_size_tag>;
@@ -226,6 +276,8 @@ int main() {
 
   enum class some_enum_class { v1, v2 };
   test.test_explicit_type<some_enum_class>(some_enum_class::v2);
+  
+  test.test_explicit_type_operators();
   //---
   test.test_explicit_tuple();
   test.test_explicit_get_set();

@@ -27,11 +27,105 @@ public:
   bool operator==(explicit_type v) { return v.value_ == value_; }
   bool operator!=(explicit_type v) { return v.value_ != value_; }
 
+  //logical operators:
   friend bool operator==(const value_type &v1, const explicit_type &v2) {
     return v1 == v2.value_;
   }
+  friend bool operator==(const explicit_type &v1, const value_type &v2) {
+    return v1.value_ == v2;
+  }
   friend bool operator!=(const value_type &v1, const explicit_type &v2) {
     return v1 != v2.value_;
+  }
+  friend bool operator!=(const explicit_type &v1, const value_type &v2) {
+    return v1.value_ != v2;
+  }
+  friend bool operator<(const value_type &v1, const explicit_type &v2) {
+    return v1 < v2.value_;
+  }
+  friend bool operator<(const explicit_type &v1, const value_type &v2) {
+    return v1.value_ < v2;
+  }
+  friend bool operator<=(const value_type &v1, const explicit_type &v2) {
+    return v1 <= v2.value_;
+  }
+  friend bool operator<=(const explicit_type &v1, const value_type &v2) {
+    return v1.value_ <= v2;
+  }
+  friend bool operator>(const value_type &v1, const explicit_type &v2) {
+    return v1 > v2.value_;
+  }
+  friend bool operator>(const explicit_type &v1, const value_type &v2) {
+    return v1.value_ > v2;
+  }
+  friend bool operator>=(const value_type &v1, const explicit_type &v2) {
+    return v1 >= v2.value_;
+  }
+  friend bool operator>=(const explicit_type &v1, const value_type &v2) {
+    return v1.value_ >= v2;
+  }
+  
+  //arithmetic operators:
+  friend explicit_type operator+(const explicit_type &v1, const explicit_type &v2) {
+    return explicit_type{v1.value_ + v2.value_};
+  }
+  friend explicit_type operator-(const explicit_type &v1, const explicit_type &v2) {
+    return explicit_type{v1.value_ - v2.value_};
+  }
+  friend explicit_type operator*(const value_type &v1, const explicit_type &v2) {
+    return explicit_type{v1 * v2.value_};
+  }
+  friend explicit_type operator*(const explicit_type &v1, const value_type &v2) {
+    return explicit_type{v1.value_ * v2};
+  }
+  friend explicit_type operator/(const explicit_type &v1, const value_type &v2) {
+    return explicit_type{v1.value_ / v2};
+  }
+  friend value_type operator/(const explicit_type &v1, const explicit_type &v2) {
+    return v1.value_ / v2.value_;
+  }
+  friend value_type operator%(const explicit_type &v1, const value_type &v2) {
+    return value_type{v1.value_ % v2};
+  }
+  
+  //bit operators:
+  friend explicit_type operator<<(const explicit_type &v1, const value_type &v2) {
+    return explicit_type{v1.value_ << v2};
+  }
+  friend explicit_type operator>>(const explicit_type &v1, const value_type &v2) {
+    return explicit_type{v1.value_ >> v2};
+  }
+  friend explicit_type operator&(const explicit_type &v1, const value_type &v2) {
+    return explicit_type{v1.value_ & v2};
+  }
+  friend explicit_type operator&(const value_type &v1, const explicit_type &v2) {
+    return explicit_type{v1 & v2.value_};
+  }
+  friend explicit_type operator|(const explicit_type &v1, const value_type &v2) {
+    return explicit_type{v1.value_ | v2};
+  }
+  friend explicit_type operator|(const value_type &v1, const explicit_type &v2) {
+    return explicit_type{v1 | v2.value_};
+  }
+  friend explicit_type operator^(const explicit_type &v1, const value_type &v2) {
+    return explicit_type{v1.value_ ^ v2};
+  }
+  friend explicit_type operator^(const value_type &v1, const explicit_type &v2) {
+    return explicit_type{v1 ^ v2.value_};
+  }
+  
+  //one argument operators:
+  friend explicit_type operator~(const explicit_type &v1) {
+    return explicit_type{~v1.value_};
+  }
+  friend explicit_type operator!(const explicit_type &v1) {
+    return explicit_type{!v1.value_};
+  }
+  friend explicit_type operator+(const explicit_type &v1) {
+    return explicit_type{+v1.value_};
+  }
+  friend explicit_type operator-(const explicit_type &v1) {
+    return explicit_type{-v1.value_};
   }
 
   explicit operator value_type() { return value_; }
