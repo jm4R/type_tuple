@@ -74,19 +74,74 @@ struct test_fixture {
     assert(val % 3     == 1);
     
     assert( *(val << 2) == 64);
+    assert( *(val << two) == 64);
     assert( *(val >> 2) == 4);
+    assert( *(val >> two) == 4);
     assert( *(val & 2)  == 0);
     assert( *(16 & val) == 16);
+    assert( *(val & two)  == 0);
     assert( *(val | 2)  == 18);
     assert( *(16 | val) == 16);
+    assert( *(two | val) == 18);
     assert( *(val ^ 2)  == 18);
     assert( *(16 ^ val) == 0);
+    assert( *(val ^ two)  == 18);
     
     assert( *(~val) == ~16);
     assert( *(!val) == !16);
     assert( *(+val) == +16);
     assert( *(-val) == -16);
     
+    {
+	  myint mval{16};
+	  mval += myint{2};
+	  assert(mval == 18);
+    }
+    {
+	  myint mval{16};
+	  mval -= myint{2};
+	  assert(mval == 14);
+    }
+    {
+      myint mval{16};
+	  mval *= 2;
+	  assert(mval == 32);
+    }
+    {
+      myint mval{16};
+	  mval /= 2;
+	  assert(mval == 8);
+    }
+    {
+      myint mval{16};
+	  mval %= 3;
+	  assert(mval == 1);
+    }
+    {
+      myint mval{16};
+	  mval <<= 2;
+	  assert(mval == 64);
+    }
+    {
+      myint mval{16};
+	  mval >>= 1;
+	  assert(mval == 8);
+    }
+    {
+      myint mval{16};
+	  mval &= 3;
+	  assert(mval == 0);
+    }
+    {
+      myint mval{16};
+	  mval |= 3;
+	  assert(mval == 19);
+    }
+    {
+      myint mval{16};
+	  mval ^= 48;
+	  assert(mval == 32);
+    }
   }
 
   void test_explicit_tuple() {
