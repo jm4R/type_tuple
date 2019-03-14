@@ -1,5 +1,5 @@
-#include "../include/explicit_tuple.h"
-#include "../include/explicit_type.h"
+#include "../include/type_tuple.hpp"
+#include "../include/explicit_type.hpp"
 
 #include <cassert>
 #include <iostream>
@@ -144,12 +144,12 @@ struct test_fixture {
     }
   }
 
-  void test_explicit_tuple() {
+  void test_type_tuple() {
     using use_cache = mj::explicit_type<bool, class use_cache_tag>;
     using cache_size = mj::explicit_type<int, class cache_size_tag>;
     using auto_commit = mj::explicit_type<bool, class auto_commit_tag>;
 
-    using db_options = mj::explicit_tuple<use_cache, cache_size, auto_commit>;
+    using db_options = mj::type_tuple<use_cache, cache_size, auto_commit>;
 
     {
       db_options db{};
@@ -210,7 +210,7 @@ struct test_fixture {
     using object = mj::explicit_type<std::shared_ptr<int>, class object_tag>;
     using movable_only = mj::explicit_type<std::unique_ptr<int>, class object_tag>;
 
-    mj::explicit_tuple<basic, pointer, object, movable_only> t{};
+    mj::type_tuple<basic, pointer, object, movable_only> t{};
 
     assert(0 == t.get<basic>());
     t.get<basic>() = basic{11};
@@ -302,7 +302,7 @@ struct test_fixture {
       some_enum_class v12;
     };
 
-    using tuple_data = mj::explicit_tuple<t01, t02, t03, t04, t05, t06, t07,
+    using tuple_data = mj::type_tuple<t01, t02, t03, t04, t05, t06, t07,
                                           t08, t09, t10, t11, t12>;
 
     static_assert(
@@ -334,7 +334,7 @@ int main() {
   
   test.test_explicit_type_operators();
   //---
-  test.test_explicit_tuple();
+  test.test_type_tuple();
   test.test_explicit_get_set();
   test.test_size();
 

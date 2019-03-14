@@ -4,8 +4,8 @@
 // License, Version 1.0. (See accompanying file LICENSE or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef jm4r_EXPLICIT_TUPLE_H
-#define jm4r_EXPLICIT_TUPLE_H
+#ifndef jm4r_type_tuple_H
+#define jm4r_type_tuple_H
 
 #include <utility>
 
@@ -24,20 +24,20 @@ protected:
 };
 
 template <typename... Params>
-class explicit_tuple : public property_holder<Params>... {
+class type_tuple : public property_holder<Params>... {
 public:
   template <typename... Args>
-  explicit explicit_tuple(Args&&... args)
+  explicit type_tuple(Args&&... args)
       : property_holder<Args>(std::forward<Args>(args))... {}
 
-  explicit_tuple(const explicit_tuple &) = default;
-  explicit_tuple(explicit_tuple &) = default;
-  explicit_tuple &operator=(const explicit_tuple &) = default;
+  type_tuple(const type_tuple &) = default;
+  type_tuple(type_tuple &) = default;
+  type_tuple &operator=(const type_tuple &) = default;
 
   template <typename T> T get() const { return property_holder<T>::get(); }
   template <typename T> T &get() { return property_holder<T>::get(); }
 
-  template <typename T> explicit_tuple &set(T &&val) {
+  template <typename T> type_tuple &set(T &&val) {
     get<T>() = std::forward<T>(val);
     return *this;
   }
@@ -57,4 +57,4 @@ private:
 
 } // namespace mj
 
-#endif // jm4r_EXPLICIT_TUPLE_H
+#endif // jm4r_type_tuple_H

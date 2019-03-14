@@ -1,9 +1,9 @@
-# explicit_tuple
+# type_tuple
 
 This library contains:
 
 * opaque typedef's – `explicit_type`;
-* tuple indexed by type, instead of standard numeric-index based – `explicit_tuple`.
+* tuple indexed by type, instead of standard numeric-index based – `type_tuple`.
 
 ## Problem introduction
 
@@ -24,14 +24,14 @@ Please note that very similar (but not the same) feature comes with C++20's [des
 
 ## The proposed solution
 
-Let's see the example with database, rewritten using `explicit_tuple` library:
+Let's see the example with database, rewritten using `type_tuple` library:
 
 ```c++
 using use_cache = mj::explicit_type<bool, class use_cache_tag>;
 using cache_size = mj::explicit_type<int, class cache_size_tag>;
 using auto_commit = mj::explicit_type<bool, class auto_commit_tag>;
 
-using db_options = mj::explicit_tuple<use_cache, cache_size, auto_commit>;
+using db_options = mj::type_tuple<use_cache, cache_size, auto_commit>;
 
 
 //usage:
@@ -42,7 +42,7 @@ auto db = open_db(options);
 Let's see what happens here.
 At first, we declare each option type.
 All of those has unique tag at template parameter list, just to make each of them having unique types.
-Then we declare the tuple itself. The `explicit_tuple` is a variadic template, but – unlike `std::tuple` all types have to be unique.
+Then we declare the tuple itself. The `type_tuple` is a variadic template, but – unlike `std::tuple` all types have to be unique.
 What for? We can see the answer when we see the tuple usage. The constructor arguments are binded by a type, not by an order.
 
 This means that all of following statements are the same:

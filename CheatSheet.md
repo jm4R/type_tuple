@@ -37,7 +37,7 @@ db_cache_size = use_cache{"500kB"};
 std::cout << "Cache size is configured to: " << db_cache_size->c_str() << std::endl;
 ```
 
-# explicit_tuple – simple usage
+# type_tuple – simple usage
 
 ## Declare own instantiation and object
 
@@ -46,7 +46,7 @@ using use_cache = mj::explicit_type<bool, class use_cache_tag>;
 using cache_size = mj::explicit_type<int, class cache_size_tag>;
 using auto_commit = mj::explicit_type<bool, class auto_commit_tag>;
 
-using db_options = mj::explicit_tuple<use_cache, cache_size, auto_commit>;
+using db_options = mj::type_tuple<use_cache, cache_size, auto_commit>;
 ```
 
 ## Setting values
@@ -80,11 +80,11 @@ if (options.get<use_cache>())
     std::cout << "using cache..." << std::endl;
 ```
 
-# explicit_tuple – good practice
+# type_tuple – good practice
 
 It is always good to hide implementation from the target user
 of our class and show him what is important only.
-Let's see simple example how one may prepare class with `explicit_tuple` as options:
+Let's see simple example how one may prepare class with `type_tuple` as options:
 
 ```c++
 class database {
@@ -106,7 +106,7 @@ public:
   // some other constructors and database stuff here
   //...
 private:
-  using db_options = mj::explicit_tuple<options::use_cache, options::cache_size,
+  using db_options = mj::type_tuple<options::use_cache, options::cache_size,
                                         options::auto_commit>;
   db_options options_;
 };
