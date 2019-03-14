@@ -11,8 +11,10 @@
 
 namespace mj {
 
+namespace detail {
+
 template <typename T> class property_holder {
-  using value_type = typename std::remove_const<T>::type;
+  using value_type = T;
   value_type val_;
 
 protected:
@@ -23,19 +25,21 @@ protected:
   value_type &get() { return val_; }
 };
 
+}
+
 template <typename... Params>
-class type_tuple : public property_holder<Params>... {
+class type_tuple : public detail::property_holder<Params>... {
 public:
   template <typename... Args>
   explicit type_tuple(Args&&... args)
-      : property_holder<Args>(std::forward<Args>(args))... {}
+      : detail::property_holder<Args>(std::forward<Args>(args))... {}
 
   type_tuple(const type_tuple &) = default;
   type_tuple(type_tuple &) = default;
   type_tuple &operator=(const type_tuple &) = default;
 
-  template <typename T> T get() const { return property_holder<T>::get(); }
-  template <typename T> T &get() { return property_holder<T>::get(); }
+  template <typename T> T get() const { return detail::property_holder<T>::get(); }
+  template <typename T> T &get() { return detail::property_holder<T>::get(); }
 
   template <typename T> type_tuple &set(T &&val) {
     get<T>() = std::forward<T>(val);

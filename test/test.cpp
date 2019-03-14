@@ -39,6 +39,29 @@ struct test_fixture {
     assert(testValue == a2);
   }
 
+  template <typename T> void test_explicit_type_cv(T testValue) {
+    using acceleration = mj::explicit_type<T, class acceleration_tag>;
+    using velocity = mj::explicit_type<T, class velocity_tag>;
+
+    acceleration a1{testValue}, a2;
+    velocity v;
+
+    static_assert(std::is_convertible<acceleration, acceleration>::value,
+                  "same types should be convertible");
+    static_assert(!std::is_convertible<acceleration, velocity>::value,
+                  "different types shouldn't be explicitly convertible");
+    static_assert(!std::is_convertible<T, velocity>::value,
+                  "explicit_type shouldn't be explicitly convertible from "
+                  "underlying type");
+    static_assert(
+        !std::is_convertible<velocity, T>::value,
+        "explicit_type shouldn't be explicitly convertible to underlying type");
+
+    assert(testValue == a1);
+	T default_constructed{};
+    assert(default_constructed == a2);
+  }
+
   void test_explicit_type_operators() {
     using myint = mj::explicit_type<int, class mi>;
     const myint val{16};
@@ -322,6 +345,7 @@ int main() {
   test.test_explicit_type<double>(5);
   test.test_explicit_type<bool>(true);
   test.test_explicit_type<bool>(false);
+  test.test_explicit_type_cv<volatile const int>(6);
   int a;
   test.test_explicit_type<int *>(&a);
   test.test_explicit_type<std::string>("test");
