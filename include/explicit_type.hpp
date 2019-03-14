@@ -1,4 +1,4 @@
-// Copyright (C) 2017 - 2018 Andrzej Krzemienski.
+// Copyright (C) 2017 - 2018 Mariusz Jaskółka.
 //
 // Use, modification, and distribution is subject to the Boost Software
 // License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at

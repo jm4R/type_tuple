@@ -94,4 +94,4 @@ It is a C++11 header-only library. Requires C++11 support
 Distributed under the [Boost Software License, Version 1.0](http://www.boost.org/LICENSE_1_0.txt).
 
 ## Acknowledgements
-This library was inspired by Andrzej Krzemiński's [`explicit`](https://github.com/akrzemi1/explicit) library, especially [`tagged_bool`](https://github.com/akrzemi1/explicit#tool-tagged_bool) part of it and is extension of the idea.
+This library was inspired by Andrzej Krzemieński's [`explicit`](https://github.com/akrzemi1/explicit) library, especially [`tagged_bool`](https://github.com/akrzemi1/explicit#tool-tagged_bool) part of it and is extension of the idea.
