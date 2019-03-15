@@ -47,7 +47,6 @@ struct test_fixture
         using velocity = mj::explicit_type< T, class velocity_tag >;
 
         acceleration a1{ testValue }, a2;
-        velocity v;
 
         static_assert(std::is_convertible< acceleration, acceleration >::value,
             "same types should be convertible");
@@ -387,6 +386,18 @@ int main()
         v2
     };
     test.test_explicit_type< some_enum_class >(some_enum_class::v2);
+
+    struct throw_move
+    {
+        throw_move() = default;
+        ~throw_move() = default;
+        throw_move(const throw_move&) = default;
+        throw_move(throw_move&&) noexcept(false) {}
+        throw_move& operator=(const throw_move&) = default;
+        throw_move& operator=(throw_move&&) noexcept(false) { return *this; }
+        bool operator==(const throw_move&) const { return true; }
+    };
+    test.test_explicit_type< throw_move >(throw_move{});
 
     test.test_explicit_type_operators();
     //---
