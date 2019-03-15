@@ -5,6 +5,8 @@ This library contains:
 * opaque typedef's – `explicit_type`;
 * tuple indexed by type, instead of standard numeric-index based – `type_tuple`.
 
+Library's elements are fully `constexpr` (or partially when using with C++11)
+
 ## Problem introduction
 
 Standard, index-based tuples requires us to remember or constantly checking out what specific index stands for. Let's see an example:
@@ -84,8 +86,7 @@ it's also limited to an object constructors so no appliable to a ordinary functi
 1. `explicit_type` doesn't support arrays (and probably never will, use `std::array` instead)
 2. `explicit_type` doesn't support references (**TO ANALYSE**)
 3. default values for parameter is always default-constructed (**TODO**)
-4. it is not constrexpr, but possibly could be (**TODO**)
-5. it is early version of it, so a bug can happen (please inform me)
+4. it is early version of it, so a bug can happen (please inform me)
 
 ## Installation
 It is a C++11 header-only library. Requires C++11 support
